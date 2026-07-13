@@ -1,5 +1,5 @@
 (() => {
-  const VERSION = '1.1.1';
+  const VERSION = '1.1.2';
   const titleToId = new Map();
   let mappingReady = false;
 
@@ -14,7 +14,7 @@
     image.className = thumb.className;
     image.src = `./assets/cards/${id}.png?v=${VERSION}`;
     image.alt = title;
-    image.loading = 'lazy';
+    image.loading = 'eager';
     image.decoding = 'async';
     image.width = 942;
     image.height = 500;
@@ -40,7 +40,7 @@
 
   observer.observe(document.documentElement, {childList: true, subtree: true});
 
-  fetch('./cards.json')
+  fetch(`./cards.json?v=${VERSION}`)
     .then(response => {
       if (!response.ok) throw new Error(`cards.json: ${response.status}`);
       return response.json();
