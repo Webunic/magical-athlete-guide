@@ -1,40 +1,34 @@
-const KEY='magical-athlete-selected-v5';
-const FAQ={
-  'magician':'После переброса используется последний полученный результат. Можно остановиться после первого или второго переброса.',
-  'romantic':'Способность проверяет любую клетку поля: когда кто-либо останавливается на клетке, где уже находится ровно один гонщик, Romantic перемещается на 2.',
-  'stickler':'Ограничение действует только на других гонщиков. Для финиша им нужно получить ровно недостающее движение; при перелёте они не двигаются вовсе.',
-  'huge-baby':'Кроме старта, другой гонщик не может закончить перемещение на клетке Huge Baby. Вместо этого его ставят на клетку непосредственно позади Huge Baby.',
-  'third-wheel':'Это именно warp: Third Wheel переносится на выбранную клетку с ровно двумя гонщиками до основного перемещения.',
-  'copycat':'Берётся способность текущего лидера гонки, а не ближайшего гонщика впереди. При совместном лидерстве Copycat выбирает одного.',
-  'twin':'Можно выбрать только гонщика, победившего в одной из предыдущих гонок этой партии.',
-  'duelist':'Дуэль объявляется, когда другой гонщик разделяет клетку с Duelist. Оба бросают кубик; победитель перемещается на 2, ничьи выигрывает Duelist.',
-  'inchworm':'Если другой гонщик выбросил 1 для основного перемещения, он полностью пропускает это перемещение, а Inchworm перемещается на 1.',
-  'alchemist':'Замена результата 1 или 2 на движение 4 необязательна.',
-  'blimp':'Бонус или штраф определяется положением Blimp в начале хода: до второго поворота +3, на нём или после него −1.',
-  'flip-flop':'Вместо броска основного перемещения происходит полноценный обмен клетками с выбранным гонщиком.',
-  'egg':'Три карты берутся перед гонкой; Egg получает способность только выбранного гонщика.',
-  'sisyphus':'При результате 6 Sisyphus не выполняет обычное движение: возвращается на старт и теряет один жетон очка.',
-  'suckerfish':'Suckerfish может последовать на новую клетку только за гонщиком, который начал перемещение на одной клетке с ним.',
-  'party-animal':'Сначала все гонщики сдвигаются на 1 клетку в сторону Party Animal, затем определяется бонус к его основному перемещению.',
-  'm-o-u-t-h':'Условие требует ровно одного другого гонщика на клетке в момент остановки M.O.U.T.H.; при большем числе гонщиков никто не выбывает.'
-};
-let DATA=[],mode='all';let selected=new Set(JSON.parse(localStorage.getItem(KEY)||'[]'));
-const $=s=>document.querySelector(s);const cards=$('#cards'),picked=$('#selected'),search=$('#search'),app=$('#app');
+const STORAGE='magical-athlete-party-v1';
+const FAQ={'magician':'После переброса используется последний полученный результат. Можно остановиться после первого или второго переброса.','romantic':'Способность проверяет любую клетку поля: когда кто-либо останавливается на клетке, где уже находится ровно один гонщик, Romantic перемещается на 2.','stickler':'Ограничение действует только на других гонщиков. Для финиша им нужно получить ровно недостающее движение; при перелёте они не двигаются вовсе.','huge-baby':'Кроме старта, другой гонщик не может закончить перемещение на клетке Huge Baby. Вместо этого его ставят на клетку непосредственно позади Huge Baby.','third-wheel':'Это именно warp: Third Wheel переносится на выбранную клетку с ровно двумя гонщиками до основного перемещения.','copycat':'Берётся способность текущего лидера гонки, а не ближайшего гонщика впереди. При совместном лидерстве Copycat выбирает одного.','twin':'Можно выбрать только гонщика, победившего в одной из предыдущих гонок этой партии.','duelist':'Дуэль объявляется, когда другой гонщик разделяет клетку с Duelist. Оба бросают кубик; победитель перемещается на 2, ничьи выигрывает Duelist.','inchworm':'Если другой гонщик выбросил 1 для основного перемещения, он полностью пропускает это перемещение, а Inchworm перемещается на 1.','alchemist':'Замена результата 1 или 2 на движение 4 необязательна.','blimp':'Бонус или штраф определяется положением Blimp в начале хода: до второго поворота +3, на нём или после него −1.','flip-flop':'Вместо броска основного перемещения происходит полноценный обмен клетками с выбранным гонщиком.','egg':'Три карты берутся перед гонкой; Egg получает способность только выбранного гонщика.','sisyphus':'При результате 6 Sisyphus не выполняет обычное движение: возвращается на старт и теряет один жетон очка.','suckerfish':'Suckerfish может последовать на новую клетку только за гонщиком, который начал перемещение на одной клетке с ним.','party-animal':'Сначала все гонщики сдвигаются на 1 клетку в сторону Party Animal, затем определяется бонус к его основному перемещению.','m-o-u-t-h':'Условие требует ровно одного другого гонщика на клетке в момент остановки M.O.U.T.H.; при большем числе гонщиков никто не выбывает.'};
+let DATA=[];let tab='pool';
+let state=loadState();
+const $=s=>document.querySelector(s);
+function defaultState(){return{playerCount:4,doubleRacers:false,names:['Игрок 1','Игрок 2','Игрок 3','Игрок 4'],cards:{}}}
+function loadState(){try{return Object.assign(defaultState(),JSON.parse(localStorage.getItem(STORAGE)||'{}'))}catch{return defaultState()}}
+function save(){localStorage.setItem(STORAGE,JSON.stringify(state))}
 function norm(s){return(s||'').toLocaleLowerCase().replaceAll('ё','е')}
-function makeCard(c,compact=false){
-  const a=document.createElement('article');a.className='card'+(compact?' selected-card':'');
-  const faq=FAQ[c.id];
-  a.innerHTML=`<div class="top"><div class="title"><h3>${c.ru}</h3><small>${c.en}</small></div><button class="pin ${selected.has(c.id)?'on':''}">${selected.has(c.id)?'✓ В игре':'＋ В игру'}</button></div><div class="label">Оригинал</div><p class="original">${c.original}</p><div class="label">Перевод</div><p>${c.translation}</p>${faq?`<details class="faq"><summary>Уточнение по правилам</summary><p>${faq}</p></details>`:''}`;
-  a.querySelector('.pin').onclick=()=>toggle(c.id);return a
-}
-function toggle(id){selected.has(id)?selected.delete(id):selected.add(id);localStorage.setItem(KEY,JSON.stringify([...selected]));render()}
-function render(){
-  const q=norm(search.value);cards.innerHTML='';picked.innerHTML='';let shown=0;
-  DATA.forEach(c=>{if(selected.has(c.id))picked.appendChild(makeCard(c,true));const hay=norm(c.ru+' '+c.en+' '+c.original+' '+c.translation+' '+(FAQ[c.id]||''));if(hay.includes(q)){cards.appendChild(makeCard(c));shown++}});
-  if(!selected.size)picked.innerHTML='<div class="empty">Нажмите «＋ В игру» на нужных карточках — они соберутся здесь.</div>';
-  $('#selectedCount').textContent=selected.size;$('#countBadge').textContent=selected.size;$('#summary').textContent=`Показано: ${shown} из ${DATA.length}`;
-  app.classList.toggle('only-game',mode==='game');$('#allBtn').classList.toggle('active',mode==='all');$('#gameBtn').classList.toggle('active',mode==='game')
-}
-search.addEventListener('input',render);$('#allBtn').onclick=()=>{mode='all';render()};$('#gameBtn').onclick=()=>{mode='game';render();window.scrollTo({top:0,behavior:'smooth'})};$('#clearBtn').onclick=()=>{if(selected.size&&confirm('Убрать все карты из состава партии?')){selected.clear();localStorage.removeItem(KEY);render()}};
-fetch('./cards.json').then(r=>r.json()).then(d=>{DATA=d;render()}).catch(()=>{$('#summary').textContent='Не удалось загрузить список карт.'});
-if('serviceWorker'in navigator)navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
+function entry(id){return state.cards[id]||{inPool:false,owner:null,inRace:false}}
+function setEntry(id,patch){state.cards[id]=Object.assign(entry(id),patch);save();render()}
+function playerName(i){return state.names[i]||`Игрок ${i+1}`}
+function visibleCards(){const q=norm($('#search').value);return DATA.filter(c=>norm(c.ru+' '+c.en+' '+c.original+' '+c.translation+' '+(FAQ[c.id]||'')).includes(q))}
+function statusText(e){if(e.owner==='other')return['Забрал другой игрок','other'];if(Number.isInteger(e.owner))return[e.inRace?`${playerName(e.owner)} · в гонке`:playerName(e.owner),e.inRace?'race':'mine'];return[e.inPool?'Доступна в пуле':'Не добавлена','']}
+function card(c,context){const e=entry(c.id),s=statusText(e);const a=document.createElement('article');a.className='card';let actions='';
+ if(context==='reference'){actions=`<div class="actions"><button class="${e.inPool&&!e.owner?'secondary':''}" data-act="pool">${e.inPool?'В пуле':'Добавить в пул'}</button></div>`}
+ if(context==='pool'){let opts=`<option value="">Доступна</option>`;for(let i=0;i<state.playerCount;i++)opts+=`<option value="p${i}" ${e.owner===i?'selected':''}>${playerName(i)}</option>`;opts+=`<option value="other" ${e.owner==='other'?'selected':''}>Забрал другой игрок</option>`;actions=`<div class="actions"><select data-act="owner">${opts}</select><button data-act="remove">Убрать из пула</button></div>`}
+ if(context==='player'){actions=`<div class="actions"><button data-act="race" class="${e.inRace?'primary':''}">${e.inRace?'Убрать из гонки':'В текущую гонку'}</button><button data-act="return">Вернуть в пул</button></div>`}
+ a.innerHTML=`<div class="top"><div class="title"><h3>${c.ru}</h3><small>${c.en}</small></div></div><span class="status ${s[1]}">${s[0]}</span><div class="label">Перевод</div><p>${c.translation}</p>${context==='race'||context==='reference'?`<div class="label">Оригинал</div><p class="original">${c.original}</p>`:''}${FAQ[c.id]?`<details class="faq"><summary>Уточнение по правилам</summary><p>${FAQ[c.id]}</p></details>`:''}${actions}`;
+ const poolBtn=a.querySelector('[data-act=pool]');if(poolBtn)poolBtn.onclick=()=>setEntry(c.id,{inPool:!e.inPool,owner:e.inPool?null:e.owner,inRace:false});
+ const owner=a.querySelector('[data-act=owner]');if(owner)owner.onchange=()=>{const v=owner.value;setEntry(c.id,{inPool:true,owner:v==='other'?'other':v?Number(v.slice(1)):null,inRace:false})};
+ const remove=a.querySelector('[data-act=remove]');if(remove)remove.onclick=()=>setEntry(c.id,{inPool:false,owner:null,inRace:false});
+ const race=a.querySelector('[data-act=race]');if(race)race.onclick=()=>toggleRace(c.id,e.owner);
+ const ret=a.querySelector('[data-act=return]');if(ret)ret.onclick=()=>setEntry(c.id,{inPool:true,owner:null,inRace:false});return a}
+function toggleRace(id,owner){const max=state.doubleRacers?2:1;const e=entry(id);if(!e.inRace){const active=DATA.filter(c=>{const x=entry(c.id);return x.owner===owner&&x.inRace});if(active.length>=max){alert(`У ${playerName(owner)} уже выбрано максимум: ${max}.`);return}}setEntry(id,{inRace:!e.inRace})}
+function renderPool(){const list=visibleCards().filter(c=>entry(c.id).inPool);$('#poolGrid').innerHTML='';list.forEach(c=>$('#poolGrid').appendChild(card(c,'pool')));$('#poolCount').textContent=list.length;$('#poolEmpty').classList.toggle('hidden',list.length>0)}
+function renderPlayers(){const root=$('#playersGrid');root.innerHTML='';for(let i=0;i<state.playerCount;i++){const box=document.createElement('section');box.className='player-box';const list=visibleCards().filter(c=>entry(c.id).owner===i);box.innerHTML=`<h3>${playerName(i)} · ${list.length}</h3><div class="grid"></div>`;list.forEach(c=>box.querySelector('.grid').appendChild(card(c,'player')));if(!list.length)box.insertAdjacentHTML('beforeend','<div class="empty">Карты пока не назначены.</div>');root.appendChild(box)}const other=visibleCards().filter(c=>entry(c.id).owner==='other');if(other.length){const box=document.createElement('section');box.className='player-box';box.innerHTML='<h3>Другие игроки</h3><div class="grid"></div>';other.forEach(c=>box.querySelector('.grid').appendChild(card(c,'pool')));root.appendChild(box)}}
+function renderRace(){const list=visibleCards().filter(c=>entry(c.id).inRace);$('#raceGrid').innerHTML='';list.forEach(c=>$('#raceGrid').appendChild(card(c,'race')));$('#raceCount').textContent=list.length;$('#raceEmpty').classList.toggle('hidden',list.length>0);$('#raceHint').textContent=state.doubleRacers?'До двух гонщиков от каждого игрока.':'По одному гонщику от каждого игрока.'}
+function renderReference(){const root=$('#referenceGrid');root.innerHTML='';visibleCards().forEach(c=>root.appendChild(card(c,'reference')))}
+function renderNames(){const root=$('#playerNames');root.innerHTML='';state.names=state.names.slice(0,state.playerCount);while(state.names.length<state.playerCount)state.names.push(`Игрок ${state.names.length+1}`);state.names.forEach((n,i)=>{const d=document.createElement('div');d.className='player-name-row';d.innerHTML=`<input type="text" value="${n}" data-name="${i}">`;d.querySelector('input').onchange=e=>{state.names[i]=e.target.value.trim()||`Игрок ${i+1}`;save();render()};root.appendChild(d)})}
+function showTab(next){tab=next;document.querySelectorAll('.panel').forEach(x=>x.classList.add('hidden'));$(`#${next}Panel`).classList.remove('hidden');document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('active',b.dataset.tab===next));render()}
+function render(){renderPool();renderPlayers();renderRace();renderReference();renderNames();$('#playerCount').value=state.playerCount;$('#doubleRacers').checked=state.doubleRacers}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));$('#search').oninput=render;$('#settingsBtn').onclick=()=>$('#setupPanel').classList.toggle('hidden');$('#closeSettings').onclick=()=>$('#setupPanel').classList.add('hidden');$('#playerCount').onchange=e=>{state.playerCount=Number(e.target.value);save();render()};$('#doubleRacers').onchange=e=>{state.doubleRacers=e.target.checked;save();render()};$('#resetParty').onclick=()=>{if(confirm('Удалить пул, владельцев и текущую гонку?')){state=defaultState();save();render();showTab('pool')}};
+fetch('./cards.json').then(r=>r.json()).then(d=>{DATA=d;render()}).catch(()=>{$('#poolEmpty').textContent='Не удалось загрузить карты.'});if('serviceWorker'in navigator)navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
