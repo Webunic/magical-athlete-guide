@@ -31,7 +31,7 @@ jobs:
           python3 -m http.server 4173 >/tmp/magical-athlete-preview.log 2>&1 &
           echo $! > /tmp/magical-athlete-preview.pid
 
-      - name: Capture and validate image previews
+      - name: Capture and validate image and text previews
         run: node scripts/capture_original_images_preview.mjs
 
       - name: Collect server log
@@ -46,6 +46,7 @@ jobs:
           path: |
             preview-original-images-mobile.png
             preview-original-images-desktop.png
+            preview-original-text-mobile.png
             preview-report.json
             preview-server.log
             assets/cards/alchemist.png
