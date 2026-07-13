@@ -1,3 +1,4 @@
+import { writeFile } from 'node:fs/promises';
 import { chromium } from 'playwright';
 
 const browser = await chromium.launch({ headless: true });
@@ -34,11 +35,6 @@ if (!report.firstImages.every(image => image.naturalWidth >= 900 && image.natura
   throw new Error(`Unexpected image dimensions: ${JSON.stringify(report.firstImages)}`);
 }
 
-await Bun?.write?.('preview-report.json', JSON.stringify(report, null, 2)).catch?.(() => {});
-if (typeof Bun === 'undefined') {
-  const { writeFile } = await import('node:fs/promises');
-  await writeFile('preview-report.json', JSON.stringify(report, null, 2));
-}
-
+await writeFile('preview-report.json', JSON.stringify(report, null, 2));
 console.log(JSON.stringify(report, null, 2));
 await browser.close();
