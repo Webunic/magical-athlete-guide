@@ -32,7 +32,12 @@ jobs:
           echo $! > /tmp/magical-athlete-preview.pid
 
       - name: Capture and validate image and text previews
-        run: node scripts/capture_original_images_preview.mjs
+        run: |
+          set +e
+          node scripts/capture_original_images_preview.mjs >preview-test.log 2>&1
+          status=$?
+          cat preview-test.log
+          exit $status
 
       - name: Collect server log
         if: always()
@@ -49,6 +54,7 @@ jobs:
             preview-original-text-mobile.png
             preview-report.json
             preview-server.log
+            preview-test.log
             assets/cards/alchemist.png
             assets/cards/blimp.png
           if-no-files-found: warn
