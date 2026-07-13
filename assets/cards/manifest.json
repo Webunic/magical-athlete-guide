@@ -1,0 +1,333 @@
+{
+  "source": "https://tesera.ru/images/items/2587383/How_to_play_Magical_Athlete_compressed.pdf",
+  "source_pages": "22-25",
+  "format": "PNG",
+  "lossless": true,
+  "render_scale": 4.0,
+  "cards": {
+    "alchemist": {
+      "page": 22,
+      "row": 0,
+      "column": 0,
+      "width": 941,
+      "height": 500,
+      "bytes": 136750,
+      "sha256": "fde69ab6149ba3368f8a73441e9de9c31df478334f01997bc3b2a1f683822234"
+    },
+    "blimp": {
+      "page": 22,
+      "row": 0,
+      "column": 1,
+      "width": 942,
+      "height": 500,
+      "bytes": 119685,
+      "sha256": "dacec4de819af15e471b2c78666371df530063daa7c2bea6ffb91ca47cff853e"
+    },
+    "coach": {
+      "page": 22,
+      "row": 0,
+      "column": 2,
+      "width": 942,
+      "height": 500,
+      "bytes": 123199,
+      "sha256": "d1efc37e9c11fca26baa4edf190ff31c89931ed6baac2e621e7670f74e0170da"
+    },
+    "baba-yaga": {
+      "page": 22,
+      "row": 1,
+      "column": 0,
+      "width": 941,
+      "height": 500,
+      "bytes": 122500,
+      "sha256": "6d16acc00797013c0da9c9c62e324b60a0b6b0f6d68d193c03a3ac2d6e36b360"
+    },
+    "centaur": {
+      "page": 22,
+      "row": 1,
+      "column": 1,
+      "width": 942,
+      "height": 500,
+      "bytes": 125775,
+      "sha256": "8080e75805e327aae7b977cbb616b3b3f7edf32ba0c0c23de9fcc79352219fe7"
+    },
+    "copycat": {
+      "page": 22,
+      "row": 1,
+      "column": 2,
+      "width": 942,
+      "height": 500,
+      "bytes": 144853,
+      "sha256": "3d4f549ac9a75561e0f69cf8cf78740346e43cf312186d926a352717d52c66c7"
+    },
+    "banana": {
+      "page": 22,
+      "row": 2,
+      "column": 0,
+      "width": 941,
+      "height": 500,
+      "bytes": 89675,
+      "sha256": "d486aee87c373c81979f4c949a6befb56cf0461df4a40bb8dd65ae118a7dc9b1"
+    },
+    "cheerleader": {
+      "page": 22,
+      "row": 2,
+      "column": 1,
+      "width": 942,
+      "height": 500,
+      "bytes": 145328,
+      "sha256": "398bbc5d9c0cf76e4502d26b1255319550131e074c1ae72d8d189792062f5491"
+    },
+    "dicemonger": {
+      "page": 22,
+      "row": 2,
+      "column": 2,
+      "width": 942,
+      "height": 500,
+      "bytes": 133184,
+      "sha256": "32b5f3fc74f5e23e2cccc05514e4f2b39cb490aac509d70b30b802ef36574462"
+    },
+    "duelist": {
+      "page": 23,
+      "row": 0,
+      "column": 0,
+      "width": 941,
+      "height": 500,
+      "bytes": 141526,
+      "sha256": "542594feec29cd3d6696a1797c138eb4715bb595e2d548762b030e336c4856d7"
+    },
+    "genius": {
+      "page": 23,
+      "row": 0,
+      "column": 1,
+      "width": 942,
+      "height": 500,
+      "bytes": 166399,
+      "sha256": "86a9c8b23278419ea30de5be623a3e04d09adcc5d517da1511bd3d025035f2ad"
+    },
+    "heckler": {
+      "page": 23,
+      "row": 0,
+      "column": 2,
+      "width": 942,
+      "height": 500,
+      "bytes": 121396,
+      "sha256": "1bb1d337b627ac43bd19df0b7ff4c402b32025c36859b5fb7e50c69882397b69"
+    },
+    "egg": {
+      "page": 23,
+      "row": 1,
+      "column": 0,
+      "width": 941,
+      "height": 500,
+      "bytes": 106859,
+      "sha256": "eaa973d8bc56090c940c613e02574cccb261f5671856357cc3ddb9925e6e8a66"
+    },
+    "gunk": {
+      "page": 23,
+      "row": 1,
+      "column": 1,
+      "width": 942,
+      "height": 500,
+      "bytes": 121786,
+      "sha256": "cf5feda487799d68fc48c5503cfbe90e53a9f52edfc40ff13bfd44c2e1c218ed"
+    },
+    "huge-baby": {
+      "page": 23,
+      "row": 1,
+      "column": 2,
+      "width": 942,
+      "height": 500,
+      "bytes": 125351,
+      "sha256": "aa52f9f5f71da8206139f522572616068e9b2a80fe9a72104fcbda4d715f1d59"
+    },
+    "flip-flop": {
+      "page": 23,
+      "row": 2,
+      "column": 0,
+      "width": 941,
+      "height": 500,
+      "bytes": 123268,
+      "sha256": "bb0cb39edfe59318430eca14ba70cbd9db608d1969a2246bddd37b2701813f97"
+    },
+    "hare": {
+      "page": 23,
+      "row": 2,
+      "column": 1,
+      "width": 942,
+      "height": 500,
+      "bytes": 120911,
+      "sha256": "8098f42c6adf97af2aeb2a7f7171c3f022274830b0c340c8fe995755a9a5b555"
+    },
+    "hypnotist": {
+      "page": 23,
+      "row": 2,
+      "column": 2,
+      "width": 942,
+      "height": 500,
+      "bytes": 118392,
+      "sha256": "c8a710a1a8419453d898e6a23257527ae4f0b5c1f012c289c07c82f66a646fef"
+    },
+    "inchworm": {
+      "page": 24,
+      "row": 0,
+      "column": 0,
+      "width": 941,
+      "height": 500,
+      "bytes": 136390,
+      "sha256": "6574ec28d0bec0741748cc6e7f639f838e3f7641c5737f9a830fc21cb5aac68e"
+    },
+    "legs": {
+      "page": 24,
+      "row": 0,
+      "column": 1,
+      "width": 942,
+      "height": 500,
+      "bytes": 138050,
+      "sha256": "615b00127885a3bd1b5c6859df172d58c1fb364b5fd1f90abf771ca490c25a74"
+    },
+    "mastermind": {
+      "page": 24,
+      "row": 0,
+      "column": 2,
+      "width": 942,
+      "height": 500,
+      "bytes": 135177,
+      "sha256": "c58c45978302596f4c3d83cdb4798a293db672ef882431712733ae867c323474"
+    },
+    "lackey": {
+      "page": 24,
+      "row": 1,
+      "column": 0,
+      "width": 941,
+      "height": 500,
+      "bytes": 100844,
+      "sha256": "3b694c7f065bafd31f96968e774cfad93ee6f9de0c90698edb6af3702bda23e2"
+    },
+    "lovable-loser": {
+      "page": 24,
+      "row": 1,
+      "column": 1,
+      "width": 942,
+      "height": 500,
+      "bytes": 117983,
+      "sha256": "1613e035525b9b1f499d42e1827493da988f124ea48f634148ab531a0d8356a9"
+    },
+    "m-o-u-t-h": {
+      "page": 24,
+      "row": 1,
+      "column": 2,
+      "width": 942,
+      "height": 500,
+      "bytes": 149054,
+      "sha256": "2c9d7d561550a8451e89d9a414e10c6ed86fc3ffc7ab6d3e169b438ec61fd2a1"
+    },
+    "leaptoad": {
+      "page": 24,
+      "row": 2,
+      "column": 0,
+      "width": 941,
+      "height": 500,
+      "bytes": 125426,
+      "sha256": "0e289fa8b5518f0bc5517ef86d41e92ee8f909c8a159e7d4b725dbb033e154f8"
+    },
+    "magician": {
+      "page": 24,
+      "row": 2,
+      "column": 1,
+      "width": 942,
+      "height": 500,
+      "bytes": 110631,
+      "sha256": "3f3fa6dcdac3aa1940ce5d64597467940b4ce61354cd7b7a5455436fce91340f"
+    },
+    "party-animal": {
+      "page": 24,
+      "row": 2,
+      "column": 2,
+      "width": 942,
+      "height": 500,
+      "bytes": 134388,
+      "sha256": "b528e23ef84b8373d200300c2de1d483ed837c211c11f198919cb2592094c095"
+    },
+    "rocket-scientist": {
+      "page": 25,
+      "row": 0,
+      "column": 0,
+      "width": 941,
+      "height": 500,
+      "bytes": 123861,
+      "sha256": "2937f8718156fc86e03a39633551c68a6563192a5ba981fa7cee6ad73ae27283"
+    },
+    "sisyphus": {
+      "page": 25,
+      "row": 0,
+      "column": 1,
+      "width": 942,
+      "height": 500,
+      "bytes": 125336,
+      "sha256": "3bdfc438e01a97a6b630c79407b4fe4011d278e4723b26bff3fa55e9b66ff2ed"
+    },
+    "suckerfish": {
+      "page": 25,
+      "row": 0,
+      "column": 2,
+      "width": 942,
+      "height": 500,
+      "bytes": 128256,
+      "sha256": "6fd1fceef2fef5df08cf74be25bd58f3de9c19499edf6e029bbbfeb86c52d435"
+    },
+    "romantic": {
+      "page": 25,
+      "row": 1,
+      "column": 0,
+      "width": 941,
+      "height": 500,
+      "bytes": 124811,
+      "sha256": "1990d38ce68e2d9a443e23697644b6a8e738f01a02037d24c8b24f1f1a5e3419"
+    },
+    "skipper": {
+      "page": 25,
+      "row": 1,
+      "column": 1,
+      "width": 942,
+      "height": 500,
+      "bytes": 126941,
+      "sha256": "446963fdf308c5255427d70787ddde848a201ce0989e50aa9abc556193bffa0c"
+    },
+    "third-wheel": {
+      "page": 25,
+      "row": 1,
+      "column": 2,
+      "width": 942,
+      "height": 500,
+      "bytes": 131193,
+      "sha256": "bfc17d543c3d7a3d7976c4e31473ac5cf76b197ad1394a9599824855485b0056"
+    },
+    "scoocher": {
+      "page": 25,
+      "row": 2,
+      "column": 0,
+      "width": 941,
+      "height": 500,
+      "bytes": 138640,
+      "sha256": "8c5eff306ce0434d267e4792f64aa171934659f96b9abd9fbd022e668339e84c"
+    },
+    "stickler": {
+      "page": 25,
+      "row": 2,
+      "column": 1,
+      "width": 942,
+      "height": 500,
+      "bytes": 121007,
+      "sha256": "2593cc711087b8e0b5016a1b35beaf73c695ce0f7ed3f6d1529fdfa3b92f347e"
+    },
+    "twin": {
+      "page": 25,
+      "row": 2,
+      "column": 2,
+      "width": 942,
+      "height": 500,
+      "bytes": 122043,
+      "sha256": "0718850b63bc689c7478cc3fc2724ad75b64ec991d97f403b09672128e93294f"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+name: Preview original rulebook images
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out pull request
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Playwright
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Start static server
+        run: |
+          python3 -m http.server 4173 >/tmp/magical-athlete-preview.log 2>&1 &
+          echo $! > /tmp/magical-athlete-preview.pid
+
+      - name: Capture and validate image previews
+        run: node scripts/capture_original_images_preview.mjs
+
+      - name: Collect server log
+        if: always()
+        run: cp /tmp/magical-athlete-preview.log preview-server.log || true
+
+      - name: Upload preview
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: original-rulebook-images-preview
+          path: |
+            preview-original-images-mobile.png
+            preview-original-images-desktop.png
+            preview-report.json
+            preview-server.log
+            assets/cards/alchemist.png
+            assets/cards/blimp.png
+          if-no-files-found: warn
+          retention-days: 7
