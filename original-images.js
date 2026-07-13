@@ -14,7 +14,7 @@
     image.className = thumb.className;
     image.src = `./assets/cards/${id}.png?v=${VERSION}`;
     image.alt = title;
-    image.loading = 'lazy';
+    image.loading = 'eager';
     image.decoding = 'async';
     image.width = 942;
     image.height = 500;
