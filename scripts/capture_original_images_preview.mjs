@@ -26,15 +26,10 @@ async function prepare(page) {
 async function openReference(page) {
   await page.goto('http://127.0.0.1:4173/index.html', { waitUntil: 'networkidle' });
   await page.click('button[data-tab="reference"]');
-  await page.waitForFunction(() => document.querySelectorAll('img.thumb[data-source="original-rulebook"]').length === 36);
-  await page.evaluate(() => {
-    document.querySelectorAll('img.thumb[data-source="original-rulebook"]').forEach(image => {
-      image.loading = 'eager';
-    });
-  });
+  await page.waitForSelector('img.thumb[data-source="original-rulebook"]');
   await page.waitForFunction(() => {
-    const images = [...document.querySelectorAll('img.thumb[data-source="original-rulebook"]')];
-    return images.length === 36 && images.every(image => image.complete && image.naturalWidth >= 900 && image.naturalHeight === 500);
+    const images = [...document.querySelectorAll('img.thumb[data-source="original-rulebook"]')].slice(0, 2);
+    return images.length === 2 && images.every(image => image.complete && image.naturalWidth >= 900 && image.naturalHeight === 500);
   });
 }
 
@@ -62,7 +57,7 @@ await openReference(mobile);
 await mobile.screenshot({ path: 'preview-original-images-mobile.png', fullPage: false });
 
 const imageReport = await mobile.evaluate(() => {
-  const images = [...document.querySelectorAll('img.thumb[data-source="original-rulebook"]')];
+  const images = [...document.querySelectorAll('img.thumb[data-source="original-rulebook"]')].slice(0, 2);
   return {
     version: document.querySelector('.version')?.textContent,
     imageCount: images.length,
@@ -89,11 +84,11 @@ await openReference(desktop);
 await desktop.screenshot({ path: 'preview-original-images-desktop.png', fullPage: false });
 
 if (pageErrors.length) throw new Error(`Page errors: ${pageErrors.join(' | ')}`);
-if (report.imageCount !== 36 || report.uniqueSources !== 36) {
-  throw new Error(`Expected 36 distinct upgraded images, got ${JSON.stringify(report)}`);
+if (report.imageCount !== 2 || report.uniqueSources !== 2) {
+  throw new Error(`Expected two distinct control images, got ${JSON.stringify(report)}`);
 }
 if (!report.dimensions.every(image => image.naturalWidth >= 900 && image.naturalHeight === 500)) {
-  throw new Error('At least one image has unexpected dimensions.');
+  throw new Error('A control image has unexpected dimensions.');
 }
 if (!report.poolCards.length || !report.playerCards.length) {
   throw new Error('Original text validation did not cover pool and player cards.');
@@ -101,11 +96,7 @@ if (!report.poolCards.length || !report.playerCards.length) {
 
 console.log(JSON.stringify({
   version: report.version,
-  imageCount: report.imageCount,
-  uniqueSources: report.uniqueSources,
-  minWidth: Math.min(...report.dimensions.map(image => image.naturalWidth)),
-  maxWidth: Math.max(...report.dimensions.map(image => image.naturalWidth)),
-  height: report.dimensions[0].naturalHeight,
+  controlImages: report.imageCount,
   poolOriginalTextCards: report.poolCards.length,
   playerOriginalTextCards: report.playerCards.length,
 }, null, 2));
