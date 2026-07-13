@@ -34,14 +34,20 @@ jobs:
       - name: Capture and validate mobile preview
         run: node scripts/capture_original_images_preview.mjs
 
+      - name: Collect server log
+        if: always()
+        run: cp /tmp/magical-athlete-preview.log preview-server.log || true
+
       - name: Upload preview
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: original-rulebook-images-preview
           path: |
             preview-original-images-mobile.png
             preview-report.json
+            preview-server.log
             assets/cards/alchemist.png
             assets/cards/blimp.png
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 7
