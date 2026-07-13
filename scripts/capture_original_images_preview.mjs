@@ -26,7 +26,7 @@ async function prepare(page) {
 async function openReference(page) {
   await page.goto('http://127.0.0.1:4173/index.html', { waitUntil: 'networkidle' });
   await page.click('button[data-tab="reference"]');
-  await page.waitForSelector('img.thumb[data-source="original-rulebook"]');
+  await page.waitForFunction(() => document.querySelectorAll('img.thumb[data-source="original-rulebook"]').length === 36);
   await page.evaluate(() => {
     document.querySelectorAll('img.thumb[data-source="original-rulebook"]').forEach(image => {
       image.loading = 'eager';
