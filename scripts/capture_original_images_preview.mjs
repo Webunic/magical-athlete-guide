@@ -26,11 +26,12 @@ async function prepare(page) {
 async function openReference(page) {
   await page.goto('http://127.0.0.1:4173/index.html', { waitUntil: 'networkidle' });
   await page.click('button[data-tab="reference"]');
-  await page.waitForSelector('img.thumb[data-source="original-rulebook"]');
-  await page.waitForFunction(() => {
-    const images = [...document.querySelectorAll('img.thumb[data-source="original-rulebook"]')].slice(0, 2);
+  const selector = '#referencePanel img.thumb[data-source="original-rulebook"]';
+  await page.waitForSelector(selector);
+  await page.waitForFunction(referenceSelector => {
+    const images = [...document.querySelectorAll(referenceSelector)].slice(0, 2);
     return images.length === 2 && images.every(image => image.complete && image.naturalWidth >= 900 && image.naturalHeight === 500);
-  });
+  }, selector);
 }
 
 async function validateOriginalTextInView(page, tab, cardSelector) {
@@ -57,7 +58,7 @@ await openReference(mobile);
 await mobile.screenshot({ path: 'preview-original-images-mobile.png', fullPage: false });
 
 const imageReport = await mobile.evaluate(() => {
-  const images = [...document.querySelectorAll('img.thumb[data-source="original-rulebook"]')].slice(0, 2);
+  const images = [...document.querySelectorAll('#referencePanel img.thumb[data-source="original-rulebook"]')].slice(0, 2);
   return {
     version: document.querySelector('.version')?.textContent,
     imageCount: images.length,
